@@ -9,10 +9,10 @@ class GildedRose {
 
     public void update_quality() {
         for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!"Aged Brie".equals(items[i].name)
+                    && !"Backstage passes to a TAFKAL80ETC concert".equals(items[i].name)) {
                 if (items[i].quality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+                    if (!"Sulfuras, Hand of Ragnaros".equals(items[i].name)) {
                         items[i].quality = items[i].quality - 1;
                     }
                 }
@@ -20,7 +20,7 @@ class GildedRose {
                 if (items[i].quality < 50) {
                     items[i].quality = items[i].quality + 1;
 
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if ("Backstage passes to a TAFKAL80ETC concert".equals(items[i].name)) {
                         if (items[i].sell_in < 11) {
                             if (items[i].quality < 50) {
                                 items[i].quality = items[i].quality + 1;
@@ -36,15 +36,15 @@ class GildedRose {
                 }
             }
 
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+            if (!"Sulfuras, Hand of Ragnaros".equals(items[i].name)) {
                 items[i].sell_in = items[i].sell_in - 1;
             }
 
             if (items[i].sell_in < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (!"Aged Brie".equals(items[i].name)) {
+                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(items[i].name)) {
                         if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+                            if (!"Sulfuras, Hand of Ragnaros".equals(items[i].name)) {
                                 items[i].quality = items[i].quality - 1;
                             }
                         }
