@@ -29,21 +29,29 @@ class GildedRose {
     }
 
     private void updateQuality(Item item) {
-        if (isOrdinaryGoods(SPECIAL_GOODS, item.name) && item.quality > BOTTOM_QUALITY) {
+        if (isNeedToDecreaseQuality(item)) {
             item.quality -= QUALITY_DECREASE_RANGE;
         } else {
             if (item.quality < CEILING_QUALITY) {
-                item.quality += QUALITY_INCREASE_RANGE;
-
-                if (!isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, item.name)) {
-                    if (item.sellIn < SELL_IN_WARNING) {
-                        if (item.quality < CEILING_QUALITY) {
-                            item.quality += QUALITY_INCREASE_RANGE;
-                        }
-                    }
-                }
+                increaseQuality(item);
             }
         }
+    }
+
+    private void increaseQuality(Item item) {
+        item.quality += QUALITY_INCREASE_RANGE;
+
+        if (isNeedExtraIncreaseQuality(item)) {
+            item.quality += QUALITY_INCREASE_RANGE;
+        }
+    }
+
+    private boolean isNeedExtraIncreaseQuality(Item item) {
+        return !isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, item.name) && item.sellIn < SELL_IN_WARNING;
+    }
+
+    private boolean isNeedToDecreaseQuality(Item item) {
+        return isOrdinaryGoods(SPECIAL_GOODS, item.name) && item.quality > BOTTOM_QUALITY;
     }
 
     private void updateSellIn(Item item) {
