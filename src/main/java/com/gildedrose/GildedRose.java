@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 class GildedRose {
     private static final String[] SPECIAL_GOODS = {"Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"};
+    private static final String[] SELL_IN_WILL_NOT_CHANGE_GOODS = {"Sulfuras, Hand of Ragnaros"};
+    private static final String[] LONGER_THE_TIME_MORE_VALIABLE_GOODS = {"Backstage passes to a TAFKAL80ETC concert"};
 
     private static final int BOTTOM_QUALITY = 0;
     private static final int CEILING_QUALITY = 50;
@@ -22,13 +24,13 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             String name = items[i].name;
-            if (isSpecialGoods(name) && items[i].quality > BOTTOM_QUALITY) {
+            if (isOrdinaryGoods(SPECIAL_GOODS, name) && items[i].quality > BOTTOM_QUALITY) {
                 items[i].quality -= QUALITY_DECREASE_RANGE;
             } else {
                 if (items[i].quality < CEILING_QUALITY) {
                     items[i].quality += QUALITY_INCREASE_RANGE;
 
-                    if ("Backstage passes to a TAFKAL80ETC concert".equals(name)) {
+                    if (!isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, name)) {
                         if (items[i].sellIn < SELL_IN_WARNING) {
                             if (items[i].quality < CEILING_QUALITY) {
                                 items[i].quality += QUALITY_INCREASE_RANGE;
@@ -38,32 +40,14 @@ class GildedRose {
                 }
             }
 
-            if (!"Sulfuras, Hand of Ragnaros".equals(items[i].name)) {
+            if (isOrdinaryGoods(SELL_IN_WILL_NOT_CHANGE_GOODS, name)) {
                 items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!"Aged Brie".equals(items[i].name)) {
-                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(items[i].name)) {
-                        if (items[i].quality > BOTTOM_QUALITY) {
-                            if (!"Sulfuras, Hand of Ragnaros".equals(items[i].name)) {
-                                items[i].quality -= QUALITY_DECREASE_RANGE;
-                            }
-                        }
-                    } else {
-                        items[i].quality = BOTTOM_QUALITY;
-                    }
-                } else {
-                    if (items[i].quality < CEILING_QUALITY) {
-                        items[i].quality += QUALITY_INCREASE_RANGE;
-                    }
-                }
             }
         }
     }
 
-    private boolean isSpecialGoods(String name) {
-        return Arrays.stream(SPECIAL_GOODS)
+    private boolean isOrdinaryGoods(String [] specialGoods, String name) {
+        return Arrays.stream(specialGoods)
             .filter(goods -> goods.equals(name))
             .collect(Collectors.toList())
             .size() == 0;
