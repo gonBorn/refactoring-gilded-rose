@@ -7,7 +7,7 @@ class GildedRose {
         this.items = items;
     }
 
-    public void update_quality() {
+    public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             if (!"Aged Brie".equals(items[i].name)
                     && !"Backstage passes to a TAFKAL80ETC concert".equals(items[i].name)) {
