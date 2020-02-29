@@ -26,12 +26,6 @@ class GildedRose {
                                 items[i].quality = items[i].quality + 1;
                             }
                         }
-
-                        if (items[i].sell_in < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
                     }
                 }
             }
@@ -49,7 +43,7 @@ class GildedRose {
                             }
                         }
                     } else {
-                        items[i].quality = items[i].quality - items[i].quality;
+                        items[i].quality = 0;
                     }
                 } else {
                     if (items[i].quality < 50) {
