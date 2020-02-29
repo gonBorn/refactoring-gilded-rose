@@ -22,11 +22,10 @@ class GildedRose {
     }
 
     public void updateAllGoods() {
-        for (int i = 0; i < items.length; i++) {
-            updateQuality(items[i]);
-
-            updateSellIn(items[i]);
-        }
+        Arrays.stream(items).forEach(item -> {
+            updateQuality(item);
+            updateSellIn(item);
+        });
     }
 
     private void updateQuality(Item item) {
