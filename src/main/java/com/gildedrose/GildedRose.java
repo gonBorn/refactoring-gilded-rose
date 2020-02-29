@@ -23,22 +23,20 @@ class GildedRose {
 
     public void updateAllGoods() {
         for (int i = 0; i < items.length; i++) {
-            String name = items[i].name;
+            updateQuality(items[i]);
 
-            updateQuality(items[i], name);
-
-            updateSellIn(i, name);
+            updateSellIn(items[i]);
         }
     }
 
-    private void updateQuality(Item item, String name) {
-        if (isOrdinaryGoods(SPECIAL_GOODS, name) && item.quality > BOTTOM_QUALITY) {
+    private void updateQuality(Item item) {
+        if (isOrdinaryGoods(SPECIAL_GOODS, item.name) && item.quality > BOTTOM_QUALITY) {
             item.quality -= QUALITY_DECREASE_RANGE;
         } else {
             if (item.quality < CEILING_QUALITY) {
                 item.quality += QUALITY_INCREASE_RANGE;
 
-                if (!isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, name)) {
+                if (!isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, item.name)) {
                     if (item.sellIn < SELL_IN_WARNING) {
                         if (item.quality < CEILING_QUALITY) {
                             item.quality += QUALITY_INCREASE_RANGE;
@@ -49,9 +47,9 @@ class GildedRose {
         }
     }
 
-    private void updateSellIn(int i, String name) {
-        if (isOrdinaryGoods(SELL_IN_WILL_NOT_CHANGE_GOODS, name)) {
-            items[i].sellIn = items[i].sellIn - 1;
+    private void updateSellIn(Item item) {
+        if (isOrdinaryGoods(SELL_IN_WILL_NOT_CHANGE_GOODS, item.name)) {
+            item.sellIn --;
         }
     }
 
