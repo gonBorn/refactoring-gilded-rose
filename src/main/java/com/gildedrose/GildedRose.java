@@ -21,28 +21,37 @@ class GildedRose {
         this.items = items;
     }
 
-    public void updateQuality() {
+    public void updateAllGoods() {
         for (int i = 0; i < items.length; i++) {
             String name = items[i].name;
-            if (isOrdinaryGoods(SPECIAL_GOODS, name) && items[i].quality > BOTTOM_QUALITY) {
-                items[i].quality -= QUALITY_DECREASE_RANGE;
-            } else {
-                if (items[i].quality < CEILING_QUALITY) {
-                    items[i].quality += QUALITY_INCREASE_RANGE;
 
-                    if (!isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, name)) {
-                        if (items[i].sellIn < SELL_IN_WARNING) {
-                            if (items[i].quality < CEILING_QUALITY) {
-                                items[i].quality += QUALITY_INCREASE_RANGE;
-                            }
+            updateQuality(items[i], name);
+
+            updateSellIn(i, name);
+        }
+    }
+
+    private void updateQuality(Item item, String name) {
+        if (isOrdinaryGoods(SPECIAL_GOODS, name) && item.quality > BOTTOM_QUALITY) {
+            item.quality -= QUALITY_DECREASE_RANGE;
+        } else {
+            if (item.quality < CEILING_QUALITY) {
+                item.quality += QUALITY_INCREASE_RANGE;
+
+                if (!isOrdinaryGoods(LONGER_THE_TIME_MORE_VALIABLE_GOODS, name)) {
+                    if (item.sellIn < SELL_IN_WARNING) {
+                        if (item.quality < CEILING_QUALITY) {
+                            item.quality += QUALITY_INCREASE_RANGE;
                         }
                     }
                 }
             }
+        }
+    }
 
-            if (isOrdinaryGoods(SELL_IN_WILL_NOT_CHANGE_GOODS, name)) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
+    private void updateSellIn(int i, String name) {
+        if (isOrdinaryGoods(SELL_IN_WILL_NOT_CHANGE_GOODS, name)) {
+            items[i].sellIn = items[i].sellIn - 1;
         }
     }
 
