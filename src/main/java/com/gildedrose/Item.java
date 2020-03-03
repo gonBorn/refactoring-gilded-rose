@@ -48,16 +48,4 @@ public class Item {
             quality = quality - 1;
         }
     }
-
-    protected boolean isSulfuras() {
-        return false;
-    }
-
-    protected boolean isBackstage() {
-        return false;
-    }
-
-    protected boolean isAgedBrie() {
-        return false;
-    }
 }
